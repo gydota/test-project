@@ -1,0 +1,27 @@
+- url: "https://www.nasheradio.ua/static/img/main/logo_newslogan_site.png"
+  id: nashe_img
+  format: PNG      # <--- ВИПРАВЛЕНО
+  type: RGB565
+  resize: 90x90
+
+- url: "https://play.tavr.media/static/image/header_menu/RadioBayraktar_220x220.jpg?v=1"
+  id: bayraktar_img
+  format: JPEG     # <--- ВИПРАВЛЕНО
+  type: RGB565
+  resize: 90x90
+
+- url: "https://cdn.instant.audio/images/logos/radioua-net/rzk.png"
+  id: rzk_img
+  format: PNG      # <--- ВИПРАВЛЕНО
+  type: RGB565
+  resize: 90x90
+
+- url: "https://www.example.com/example.jpeg"
+  format: JPEG
+  type: RGB565
+  resize: 120x120
+  id: media_image_jpeg
+  on_download_finished:
+    - lvgl.obj.update:
+        id: media_cover
+        bg_image_src: media_image_jpeg

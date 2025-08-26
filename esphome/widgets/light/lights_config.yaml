@@ -1,0 +1,46 @@
+substitutions:
+
+  light_entity_1: "switch.display_02_light_relay_1"
+  light_entity_2: "switch.display_02_light_relay_2"
+  light_entity_3: "switch.display_02_light_relay_3"
+  light_entity_4: "switch.4_relays_shchitova_l1"
+
+  light_widget_name_1: "light1"
+  light_widget_name_2: "light2"
+  light_widget_name_3: "light3"
+  light_widget_name_4: "light4"
+
+
+  light_label_name_1: "Острів"
+  light_label_name_2: "Стіл"
+  light_label_name_3: "Стіна"
+  light_label_name_4: "Вулиця"
+
+packages:
+  light_panel: !include lights_panel.yaml
+
+  light_1: !include
+    file: light_relays_1.yaml   #light_rgb_widget.yaml
+    vars:
+      light_entity: "${light_entity_1}"
+      widget_name: "${light_widget_name_1}"
+      
+  light_2: !include
+    file: light_relays_2.yaml   #light_rgb_widget_slider.yaml
+    vars:
+      light_entity: "${light_entity_2}"
+      widget_name: "${light_widget_name_2}"
+      
+  light_3: !include
+    file: light_relays_3.yaml   #light_temp_color_widget.yaml
+    vars:
+      light_entity: "${light_entity_3}"
+      widget_name: "${light_widget_name_3}"
+
+  light_4: !include
+    file: light_relays_4.yaml   #light_brightness_widget.yaml
+    vars:
+      light_entity: "${light_entity_4}"
+      widget_name: "${light_widget_name_4}"
+
+

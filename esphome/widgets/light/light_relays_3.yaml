@@ -1,0 +1,29 @@
+switch:
+  
+
+  - platform: gpio
+    id: relay_3
+    name: "Light Relay 3"
+    pin: GPIO40
+    on_turn_on:
+      - lvgl.button.update:
+          id: ${light_widget_name_3}_btn
+      - lvgl.label.update:
+          id: ${light_widget_name_3}_lable_name
+          text_color: color_misty_blue
+      - lvgl.label.update:
+          id: ${light_widget_name_3}_light_on
+          text_color: color_amber
+          
+
+    on_turn_off:
+      - lvgl.button.update:
+          id: ${light_widget_name_3}_btn
+      - lvgl.label.update:
+          id: ${light_widget_name_3}_lable_name
+          text_color: color_misty_blue
+      - lvgl.label.update:
+          id: ${light_widget_name_3}_light_on
+          text_color: color_steel_blue
+    restore_mode: RESTORE_DEFAULT_OFF
+

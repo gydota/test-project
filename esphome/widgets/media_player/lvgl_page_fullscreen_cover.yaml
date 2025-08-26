@@ -1,0 +1,238 @@
+# Це ВВЕСЬ оновлений вміст файлу.
+# --- ПОЧАТОК ФАЙЛУ lvgl_page_fullscreen_cover.yaml ---
+
+substitutions:
+  # Назви для кнопок, визначені локально для цієї сторінки
+  radio_1_name: "Наше радіо"
+  radio_2_name: "Байрактар"
+  radio_3_name: "Радіо з криївки"
+
+globals:
+  - id: active_radio_index
+    type: int
+    initial_value: '0' # 0 означає, що жодна кнопка не активна
+
+script:
+  - id: update_radio_button_styles
+    then:
+      # Скидаємо вигляд усіх кнопок до стандартного
+      - lvgl.button.update:
+          id: radio_button_1
+          border_color: color_misty_blue
+      - lvgl.button.update:
+          id: radio_button_2
+          border_color: color_misty_blue
+      - lvgl.button.update:
+          id: radio_button_3
+          border_color: color_misty_blue
+      
+      # Підсвічуємо ту, яка зараз активна
+      - if:
+          condition:
+            lambda: 'return id(active_radio_index) == 1;'
+          then:
+            - lvgl.button.update:
+                id: radio_button_1
+                border_color: color_yellow
+      - if:
+          condition:
+            lambda: 'return id(active_radio_index) == 2;'
+          then:
+            - lvgl.button.update:
+                id: radio_button_2
+                border_color: color_yellow
+      - if:
+          condition:
+            lambda: 'return id(active_radio_index) == 3;'
+          then:
+            - lvgl.button.update:
+                id: radio_button_3
+                border_color: color_yellow
+
+lvgl:
+  pages:
+    - id: media_player_fullscreen_cover_page
+      bg_color: color_slate_blue_gray
+      widgets:
+        # --- Верхній прямокутник (для кнопки 1) ---
+        - obj:
+            id: cover_panel_top
+            x: 20
+            y: 20
+            width: 440
+            height: 110
+            align: TOP_LEFT
+            bg_color: color_steel_blue
+            bg_opa: 20%
+            border_opa: TRANSP
+            radius: 10
+            widgets:
+              # --- Кнопка 1 ---
+              - button:
+                  id: radio_button_1
+                  align: CENTER
+                  width: 160
+                  height: 80
+                  bg_color: color_slate_blue_gray
+                  border_width: 2
+                  border_color: color_misty_blue
+                  radius: 10
+                  on_press:
+                    - if:
+                        condition:
+                          lambda: 'return id(active_radio_index) == 1;'
+                        then:
+                          - globals.set:
+                              id: active_radio_index
+                              value: '0'
+                        else:
+                          - globals.set:
+                              id: active_radio_index
+                              value: '1'
+                          - homeassistant.service:
+                              service: script.turn_on
+                              data:
+                                entity_id: script.radio_1
+                    - script.execute: update_radio_button_styles
+                  widgets:
+                    - label:
+                        align: CENTER
+                        text: "${radio_1_name}"
+                        text_font: nunito_20
+                        text_color: color_misty_blue
+
+        # --- Середній прямокутник (для кнопки 2) ---
+        - obj:
+            id: cover_panel_middle
+            x: 20
+            y: 146
+            width: 440
+            height: 110
+            align: TOP_LEFT
+            bg_color: color_steel_blue
+            bg_opa: 20%
+            border_opa: TRANSP
+            radius: 10
+            widgets:
+              # --- Кнопка 2 ---
+              - button:
+                  id: radio_button_2
+                  align: CENTER
+                  width: 160
+                  height: 80
+                  bg_color: color_slate_blue_gray
+                  border_width: 2
+                  border_color: color_misty_blue
+                  radius: 10
+                  on_press:
+                    - if:
+                        condition:
+                          lambda: 'return id(active_radio_index) == 2;'
+                        then:
+                          - globals.set:
+                              id: active_radio_index
+                              value: '0'
+                        else:
+                          - globals.set:
+                              id: active_radio_index
+                              value: '2'
+                          - homeassistant.service:
+                              service: script.turn_on
+                              data:
+                                entity_id: script.radio_2
+                    - script.execute: update_radio_button_styles
+                  widgets:
+                    - label:
+                        align: CENTER
+                        text: "${radio_2_name}"
+                        text_font: nunito_20
+                        text_color: color_misty_blue
+
+        # --- Нижній прямокутник (для кнопки 3) ---
+        - obj:
+            id: cover_panel_bottom
+            x: 20
+            y: 272
+            width: 440
+            height: 110
+            align: TOP_LEFT
+            bg_color: color_steel_blue
+            bg_opa: 20%
+            border_opa: TRANSP
+            radius: 10
+            widgets:
+              # --- Кнопка 3 ---
+              - button:
+                  id: radio_button_3
+                  align: CENTER
+                  width: 160
+                  height: 80
+                  bg_color: color_slate_blue_gray
+                  border_width: 2
+                  border_color: color_misty_blue
+                  radius: 10
+                  on_press:
+                    - if:
+                        condition:
+                          lambda: 'return id(active_radio_index) == 3;'
+                        then:
+                          - globals.set:
+                              id: active_radio_index
+                              value: '0'
+                        else:
+                          - globals.set:
+                              id: active_radio_index
+                              value: '3'
+                          - homeassistant.service:
+                              service: script.turn_on
+                              data:
+                                entity_id: script.radio_3
+                    - script.execute: update_radio_button_styles
+                  widgets:
+                    - label:
+                        align: CENTER
+                        text: "${radio_3_name}"
+                        text_font: nunito_20
+                        text_color: color_misty_blue
+
+        # --- Футер (кнопка "Назад" та назва) ---
+        - button:
+            x: 20
+            y: 400
+            width: 60
+            height: 60
+            align: TOP_LEFT
+            bg_color: color_steel_blue
+            bg_opa: 20%
+            border_opa: TRANSP
+            shadow_opa: TRANSP
+            radius: 10
+            on_press:
+              - lvgl.page.show: media_player_page
+            widgets:
+              - label:
+                  align: CENTER
+                  y: 5
+                  text_font: icons_28
+                  text_color: color_misty_blue
+                  text: "${exit_icon}"
+        - obj:
+            id: cover_page_bg_name
+            x: -20
+            y: 400
+            width: 360
+            height: 60
+            align: TOP_RIGHT
+            bg_color: color_steel_blue
+            bg_opa: 20%
+            border_opa: TRANSP
+            shadow_opa: TRANSP
+            radius: 10
+            widgets:
+              - label:
+                  id: cover_page_friendly_name_label
+                  align: CENTER
+                  long_mode: DOT
+                  text_color: color_misty_blue
+                  text_font: nunito_20
+                  text: !lambda 'return id(media_player_friendly_name).state;'

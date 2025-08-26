@@ -1,0 +1,29 @@
+switch:
+  
+
+  - platform: homeassistant
+    id: relay_4
+    name: "Light Relay 4"
+    entity_id: switch.4_relays_shchitova_l1
+    on_turn_on:
+      - lvgl.button.update:
+          id: ${light_widget_name_4}_btn
+      - lvgl.label.update:
+          id: ${light_widget_name_4}_lable_name
+          text_color: color_misty_blue
+      - lvgl.label.update:
+          id: ${light_widget_name_4}_light_on
+          text_color: color_amber
+          
+
+    on_turn_off:
+      - lvgl.button.update:
+          id: ${light_widget_name_4}_btn
+      - lvgl.label.update:
+          id: ${light_widget_name_4}_lable_name
+          text_color: color_misty_blue
+      - lvgl.label.update:
+          id: ${light_widget_name_4}_light_on
+          text_color: color_steel_blue
+    restore_mode: RESTORE_DEFAULT_OFF
+
